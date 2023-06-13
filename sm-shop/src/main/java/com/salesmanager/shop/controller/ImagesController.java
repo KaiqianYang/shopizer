@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.salesmanager.core.business.exception.ServiceException;
@@ -47,9 +47,9 @@ public class ImagesController {
 	@PostConstruct
 	public void init() {
 		try {
-			File file = ResourceUtils.getFile("classpath:static/not-found.png");
+			/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File file = ResourceUtils.getFile("classpath:static/not-found.png");
 			if(file != null) {
-				byte[] bFile = Files.readAllBytes(file.toPath());
+				byte[] bFile = Files.readAllBytes(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file.toPath());
 				this.tempImage = bFile;
 			}
 
@@ -68,7 +68,7 @@ public class ImagesController {
 	 * @throws IOException
 	 * @throws ServiceException 
 	 */
-	@RequestMapping("/static/files/{storeCode}/{imageType}/{imageName}.{extension}")
+	@GetMapping("/static/files/{storeCode}/{imageType}/{imageName}.{extension}")
 	public @ResponseBody byte[] printImage(@PathVariable final String storeCode, @PathVariable final String imageType, @PathVariable final String imageName, @PathVariable final String extension) throws IOException, ServiceException {
 
 		// example -> /static/files/DEFAULT/CONTENT/myImage.png
@@ -110,7 +110,7 @@ public class ImagesController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/static/{storeCode}/{imageType}/{productCode}/{imageName}.{extension}")
+	@GetMapping("/static/{storeCode}/{imageType}/{productCode}/{imageName}.{extension}")
 	public @ResponseBody byte[] printImage(@PathVariable final String storeCode, @PathVariable final String productCode, @PathVariable final String imageType, @PathVariable final String imageName, @PathVariable final String extension) throws IOException {
 
 		// product image
@@ -158,7 +158,7 @@ public class ImagesController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/static/products/{storeCode}/{productCode}/{imageSize}/{imageName}.{extension}",
+	@GetMapping(value="/static/products/{storeCode}/{productCode}/{imageSize}/{imageName}.{extension}",
 			produces = {"image/gif", "image/jpg", "image/png", "application/octet-stream"})
 	public @ResponseBody byte[] printImage(@PathVariable final String storeCode, @PathVariable final String productCode, @PathVariable final String imageSize, @PathVariable final String imageName, @PathVariable final String extension, HttpServletRequest request) throws IOException {
 
@@ -208,7 +208,7 @@ public class ImagesController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value="/static/products/{storeCode}/{productCode}/{imageName}.{extension}",
+	@GetMapping(value="/static/products/{storeCode}/{productCode}/{imageName}.{extension}",
 	produces = {"image/gif", "image/jpg", "image/png", "application/octet-stream"})
 	public @ResponseBody byte[] printImage(@PathVariable final String storeCode, @PathVariable final String productCode, @PathVariable final String imageName, @PathVariable final String extension, HttpServletRequest request) throws IOException {
 

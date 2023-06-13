@@ -10,14 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.model.merchant.MerchantStore;
 import com.salesmanager.core.model.reference.language.Language;
@@ -45,7 +38,7 @@ public class ProductPropertySetApi {
 	private ProductOptionSetFacade productOptionSetFacade;
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product/property/set" }, method = RequestMethod.POST)
+	@PostMapping({"/private/product/property/set"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void create(
@@ -63,7 +56,7 @@ public class ProductPropertySetApi {
 			@ApiImplicitParam(name = "lang", dataType = "string", defaultValue = "en") })
 	@ApiOperation(httpMethod = "GET", value = "Check if option set code already exists", notes = "", response = EntityExists.class)
 	public ResponseEntity<EntityExists> exists(
-			@RequestParam(value = "code") String code,
+	@RequestParam String code,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
 
@@ -73,7 +66,7 @@ public class ProductPropertySetApi {
 
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/property/set/{id}" }, method = RequestMethod.GET)
+	@GetMapping({"/private/product/property/set/{id}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	@ResponseBody
@@ -88,7 +81,7 @@ public class ProductPropertySetApi {
 
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/property/set/{id}" }, method = RequestMethod.PUT)
+	@PutMapping({"/private/product/property/set/{id}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void update(
@@ -104,7 +97,7 @@ public class ProductPropertySetApi {
 
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/property/set/{id}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/property/set/{id}"})
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -125,7 +118,7 @@ public class ProductPropertySetApi {
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/property/set" }, method = RequestMethod.GET)
+	@GetMapping({"/private/product/property/set"})
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })

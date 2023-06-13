@@ -79,7 +79,7 @@ public class MerchantStoreApi {
 	@GetMapping(value = { "/store/{code}" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "GET", value = "Get merchant store", notes = "", response = ReadableMerchantStore.class)
 	public ReadableMerchantStore store(@PathVariable String code,
-			@RequestParam(value = "lang", required = false) String lang) {
+	@RequestParam(required = false) String lang) {
 		//return storeFacade.getByCode(code, lang);
 		ReadableMerchantStore readable =  storeFacade.getByCode(code, lang);
 		return readable;
@@ -105,8 +105,8 @@ public class MerchantStoreApi {
 	@ApiOperation(httpMethod = "GET", value = "Get retailer child stores", notes = "Merchant (retailer) can have multiple stores", response = ReadableMerchantStore.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ReadableMerchantStoreList list(@PathVariable String code, @ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 		String authenticatedUser = userFacade.authenticatedUser();
 		if (authenticatedUser == null) {
@@ -128,8 +128,8 @@ public class MerchantStoreApi {
 	public ReadableMerchantStoreList get(
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count,
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count,
 			HttpServletRequest request) {
 
 		String authenticatedUser = userFacade.authenticatedUser();
@@ -169,8 +169,8 @@ public class MerchantStoreApi {
 	public List<ReadableMerchantStore> list(
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count,
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count,
 			HttpServletRequest request
 			) {
 		
@@ -270,8 +270,8 @@ public class MerchantStoreApi {
 	@ApiOperation(httpMethod = "GET", value = "Get child stores", notes = "", response = List.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ReadableMerchantStoreList children(@PathVariable String code, @ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count,
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count,
 			HttpServletRequest request) {
 
 		String userName = getUserFromRequest(request);
@@ -346,7 +346,7 @@ public class MerchantStoreApi {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(value = { "/store/unique","/private/store/unique" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "GET", value = "Check if store code already exists", notes = "", response = EntityExists.class)
-	public ResponseEntity<EntityExists> exists(@RequestParam(value = "code") String code) {
+	public ResponseEntity<EntityExists> exists(@RequestParam String code) {
 		boolean isStoreExist = storeFacade.existByCode(code);
 		return new ResponseEntity<EntityExists>(new EntityExists(isStoreExist), HttpStatus.OK);
 	}

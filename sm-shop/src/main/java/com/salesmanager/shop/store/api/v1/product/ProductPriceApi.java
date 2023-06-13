@@ -9,12 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.model.merchant.MerchantStore;
 import com.salesmanager.core.model.reference.language.Language;
@@ -50,8 +45,7 @@ public class ProductPriceApi {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductApi.class);
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{sku}/inventory/{inventoryId}/price"},
-			method = RequestMethod.POST)
+	@PostMapping({"/private/product/{sku}/inventory/{inventoryId}/price"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody Entity save(
@@ -71,8 +65,7 @@ public class ProductPriceApi {
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product/{sku}/price"},
-			method = RequestMethod.POST)
+	@PostMapping({"/private/product/{sku}/price"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody Entity save(
@@ -90,8 +83,7 @@ public class ProductPriceApi {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{sku}/inventory/{inventoryId}/price/{priceId}"},
-			method = RequestMethod.PUT)
+	@PutMapping({"/private/product/{sku}/inventory/{inventoryId}/price/{priceId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void edit(
@@ -113,8 +105,7 @@ public class ProductPriceApi {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{sku}/price/{priceId}"},
-			method = RequestMethod.GET)
+	@GetMapping({"/private/product/{sku}/price/{priceId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ReadableProductPrice get(
@@ -132,8 +123,7 @@ public class ProductPriceApi {
 	
 	}
 	
-	@RequestMapping(value = { "/private/product/{sku}/inventory/{inventoryId}/price"},
-			method = RequestMethod.GET)
+	@GetMapping({"/private/product/{sku}/inventory/{inventoryId}/price"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public List<ReadableProductPrice> list(
@@ -149,8 +139,7 @@ public class ProductPriceApi {
 	}
 	
 	
-	@RequestMapping(value = { "/private/product/{sku}/prices"},
-			method = RequestMethod.GET)
+	@GetMapping({"/private/product/{sku}/prices"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public List<ReadableProductPrice> list(
@@ -165,8 +154,7 @@ public class ProductPriceApi {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{sku}/price/{priceId}"},
-			method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/{sku}/price/{priceId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void delete(

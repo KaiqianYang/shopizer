@@ -47,10 +47,10 @@ public class ImportIntegrationModule  {
 		
 
 			ObjectMapper mapper = new ObjectMapper();
-			File file = new File(" /Users/carlsamson/Documents/dev/workspaces/shopizer-master/shopizer/sm-core/src/main/resources/reference/integrationmodules.json");
+			/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File file = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File(" /Users/carlsamson/Documents/dev/workspaces/shopizer-master/shopizer/sm-core/src/main/resources/reference/integrationmodules.json");
 
 
-		try (InputStream in = new FileInputStream(file)) {
+		try (InputStream in = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream(file)) {
 
 			@SuppressWarnings("rawtypes")
 			Map[] objects = mapper.readValue(in, Map[].class);
@@ -91,10 +91,10 @@ public class ImportIntegrationModule  {
 		
 
 			ObjectMapper mapper = new ObjectMapper();
-			File file = new File("/Users/carlsamson/Documents/dev/workspaces/shopizer-master/shopizer/sm-core/src/main/resources/reference/integrationmodules.json");
+			/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File file = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File("/Users/carlsamson/Documents/dev/workspaces/shopizer-master/shopizer/sm-core/src/main/resources/reference/integrationmodules.json");
 
 
-		try (InputStream in = new FileInputStream(file)) {
+		try (InputStream in = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream(file)) {
 
 			@SuppressWarnings("rawtypes")
 			Map[] objects = mapper.readValue(in, Map[].class);

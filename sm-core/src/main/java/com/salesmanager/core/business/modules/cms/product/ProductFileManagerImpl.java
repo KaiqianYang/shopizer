@@ -187,12 +187,12 @@ public class ProductFileManagerImpl extends ProductFileManager {
         }
 
 
-        File tempLarge =
-            File.createTempFile(new StringBuilder().append(productImage.getProduct().getId())
+        /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File tempLarge =
+            /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*//*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File.createTempFile(new StringBuilder().append(productImage.getProduct().getId())
                 .append("tmpLarge").toString(), "." + extension);
         ImageIO.write(largeResizedImage, extension, tempLarge);
 
-        try(FileInputStream isLarge = new FileInputStream(tempLarge)) {
+        try(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream isLarge = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream(tempLarge)) {
 
 
         // IOUtils.copy(isLarge, output);
@@ -217,7 +217,7 @@ public class ProductFileManagerImpl extends ProductFileManager {
         // output.flush();
         // output.close();
 
-        tempLarge.delete();
+        /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/tempLarge.delete();
 
         // now upload original
 

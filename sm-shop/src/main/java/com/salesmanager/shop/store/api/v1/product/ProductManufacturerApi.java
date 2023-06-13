@@ -11,14 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
+
 import com.salesmanager.core.business.services.catalog.product.manufacturer.ManufacturerService;
 import com.salesmanager.core.model.catalog.product.manufacturer.Manufacturer;
 import com.salesmanager.core.model.merchant.MerchantStore;
@@ -66,7 +60,7 @@ public class ProductManufacturerApi {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/private/manufacturer", method = RequestMethod.POST)
+	@PostMapping("/private/manufacturer")
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -90,7 +84,7 @@ public class ProductManufacturerApi {
 		}
 	}
 
-	@RequestMapping(value = "/manufacturer/{id}", method = RequestMethod.GET)
+	@GetMapping("/manufacturer/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -119,7 +113,7 @@ public class ProductManufacturerApi {
 	}
 
 	
-	@RequestMapping(value = "/private/manufacturers", method = RequestMethod.GET)
+	@GetMapping("/private/manufacturers")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -128,9 +122,9 @@ public class ProductManufacturerApi {
 	public ReadableManufacturerList listByStore(
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+	@RequestParam(required = false) String name,
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 		ListCriteria listCriteria = new ListCriteria();
 		listCriteria.setName(name);
@@ -138,16 +132,16 @@ public class ProductManufacturerApi {
 	}
 	
 	
-	@RequestMapping(value = "/manufacturers", method = RequestMethod.GET)
+	@GetMapping("/manufacturers")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	@ApiOperation(httpMethod = "GET", value = "List manufacturers by store", notes = "This request supports paging or not. Paging supports page number and request count", response = ReadableManufacturerList.class)
 	public ReadableManufacturerList list(@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+	@RequestParam(required = false) String name,
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 		ListCriteria listCriteria = new ListCriteria();
 		listCriteria.setName(name);
@@ -158,7 +152,7 @@ public class ProductManufacturerApi {
 	@GetMapping(value = { "/private/manufacturer/unique" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT") })
 	@ApiOperation(httpMethod = "GET", value = "Check if manufacturer code already exists", notes = "", response = EntityExists.class)
-	public ResponseEntity<EntityExists> exists(@RequestParam(value = "code") String code,
+	public ResponseEntity<EntityExists> exists(@RequestParam String code,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
 
 		boolean exists = manufacturerFacade.manufacturerExist(merchantStore, code);
@@ -166,7 +160,7 @@ public class ProductManufacturerApi {
 
 	}
 
-	@RequestMapping(value = "/private/manufacturer/{id}", method = RequestMethod.PUT)
+	@PutMapping("/private/manufacturer/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -187,7 +181,7 @@ public class ProductManufacturerApi {
 		}
 	}
 
-	@RequestMapping(value = "/private/manufacturer/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping("/private/manufacturer/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -213,7 +207,7 @@ public class ProductManufacturerApi {
 		}
 	}
 
-	@RequestMapping(value = "/category/{id}/manufacturer", method = RequestMethod.GET)
+	@GetMapping("/category/{id}/manufacturer")
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(httpMethod = "GET", value = "Get all manufacturers for all items in a given category", notes = "", produces = "application/json", response = List.class)
 	@ResponseBody

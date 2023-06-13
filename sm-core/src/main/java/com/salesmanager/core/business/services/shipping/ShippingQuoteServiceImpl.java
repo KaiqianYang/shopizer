@@ -46,7 +46,7 @@ public class ShippingQuoteServiceImpl extends SalesManagerEntityServiceImpl<Long
 		
 		Validate.notNull(quoteId,"quoteId must not be null");
 		
-		Quote q = shippingQuoteRepository.getOne(quoteId);
+		Quote q = shippingQuoteRepository.getById(quoteId);
 
 		
 		ShippingSummary quote = null;

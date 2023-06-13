@@ -49,21 +49,21 @@ public class StaticContentTest extends com.salesmanager.test.common.AbstractSale
 	
     @Test
     public void createImage()
-        throws ServiceException, FileNotFoundException, IOException
+        throws ServiceException, /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileNotFoundException, IOException
     {
 
         MerchantStore store = merchantService.getByCode( MerchantStore.DEFAULT_STORE );
-        final File file1 = new File( IMAGE_FILE);
+        final /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File file1 = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File( IMAGE_FILE);
 
-        if ( !file1.exists() || !file1.canRead() )
+        if ( !/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.exists() || !/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.canRead() )
         {
-            throw new ServiceException( "Can't read" + file1.getAbsolutePath() );
+            throw new ServiceException( "Can't read" + /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getAbsolutePath() );
         }
 
-        final byte[] is = IOUtils.toByteArray( new FileInputStream( file1 ) );
+        final byte[] is = IOUtils.toByteArray( new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream( file1 ) );
         final ByteArrayInputStream inputStream = new ByteArrayInputStream( is );
         final InputContentFile cmsContentImage = new InputContentFile();
-        cmsContentImage.setFileName( file1.getName() );
+        cmsContentImage.setFileName( /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getName() );
         cmsContentImage.setFile( inputStream );
         cmsContentImage.setFileContentType(FileContentType.IMAGE);
         
@@ -72,17 +72,17 @@ public class StaticContentTest extends com.salesmanager.test.common.AbstractSale
 
     
         //get image
-		OutputContentFile image = contentService.getContentFile(store.getCode(), FileContentType.IMAGE, file1.getName());
+		OutputContentFile image = contentService.getContentFile(store.getCode(), FileContentType.IMAGE, /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getName());
 
         //print image
-   	 	OutputStream outputStream = new FileOutputStream (OUTPUT_FOLDER + image.getFileName()); 
+   	 	OutputStream outputStream = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileOutputStream (OUTPUT_FOLDER + image.getFileName()); 
 
    	 	ByteArrayOutputStream baos =  image.getFile();
    	 	baos.writeTo(outputStream);
 		
 		
 		//remove image
-   	 	contentService.removeFile(store.getCode(), FileContentType.IMAGE, file1.getName());
+   	 	contentService.removeFile(store.getCode(), FileContentType.IMAGE, /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getName());
 		
 
 

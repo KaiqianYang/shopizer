@@ -35,7 +35,7 @@ public class CacheApi {
 
   @DeleteMapping(value = "/auth/cache/store/{storeId}/clear")
   public @ResponseBody ResponseEntity<String> clearCache(@PathVariable("storeId") String storeCode,
-      @RequestParam(name = "cacheKey", required = false) String cacheKey) {
+	@RequestParam(required = false) String cacheKey) {
 
     try {
       MerchantStore merchantStore = storeFacade.get(storeCode);

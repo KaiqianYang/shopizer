@@ -14,7 +14,7 @@ public class ShopServletContextListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		logger.info("===context init===");
-		System.getenv().forEach((k, v) -> {
+		/*~~(TODO ASA-JavaSystemConfig: need environment variables configuration in azure spring apps)~~>*/System.getenv().forEach((k, v) -> {
 		  logger.debug(k + ":" + v);
 		});
 		Properties props = System.getProperties();

@@ -35,27 +35,27 @@ public class ContentImagesTest extends com.salesmanager.test.common.AbstractSale
 
 	// @Test
 	@Ignore
-	public void createStoreLogo() throws ServiceException, FileNotFoundException, IOException {
+	public void createStoreLogo() throws ServiceException, /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileNotFoundException, IOException {
 
 		MerchantStore store = merchantService.getByCode(MerchantStore.DEFAULT_STORE);
 
-		final File file1 = new File("C:/doc/Hadoop.jpg");
+		final /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File file1 = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File(/*~~(TODO ASA-WindowsFilePath: this file system path is Microsoft Windows platform dependent)~~>*/"C:/doc/Hadoop.jpg");
 
-		if (!file1.exists() || !file1.canRead()) {
-			throw new ServiceException("Can't read" + file1.getAbsolutePath());
+		if (!/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.exists() || !/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.canRead()) {
+			throw new ServiceException("Can't read" + /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getAbsolutePath());
 		}
 
-		byte[] is = IOUtils.toByteArray(new FileInputStream(file1));
+		byte[] is = IOUtils.toByteArray(new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream(file1));
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(is);
 		InputContentFile cmsContentImage = new InputContentFile();
 
-		cmsContentImage.setFileName(file1.getName());
+		cmsContentImage.setFileName(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getName());
 		cmsContentImage.setFile(inputStream);
 
 		// logo as a content
 		contentService.addLogo(store.getCode(), cmsContentImage);
 
-		store.setStoreLogo(file1.getName());
+		store.setStoreLogo(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/file1.getName());
 		merchantService.update(store);
 
 		// query the store
@@ -67,7 +67,7 @@ public class ContentImagesTest extends com.salesmanager.test.common.AbstractSale
 		OutputContentFile image = contentService.getContentFile(store.getCode(), FileContentType.LOGO, logo);
 
 		// print image
-		OutputStream outputStream = new FileOutputStream("C:/doc/logo-" + image.getFileName());
+		OutputStream outputStream = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileOutputStream(/*~~(TODO ASA-WindowsFilePath: this file system path is Microsoft Windows platform dependent)~~>*/"C:/doc/logo-" + image.getFileName());
 
 		ByteArrayOutputStream baos = image.getFile();
 		baos.writeTo(outputStream);

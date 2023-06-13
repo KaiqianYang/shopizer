@@ -140,7 +140,7 @@ public class ContentApi {
 	@ApiOperation(httpMethod = "GET", value = "Get page content by code for a given MerchantStore", notes = "", produces = "application/json", response = ReadableContentPage.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableContentPage page(@PathVariable("code") String code, @ApiIgnore MerchantStore merchantStore,
+	public ReadableContentPage page(@PathVariable String code, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 
 		return contentFacade.getContentPage(code, merchantStore, language);
@@ -158,7 +158,7 @@ public class ContentApi {
 	@ApiOperation(httpMethod = "GET", value = "Get page content by code for a given MerchantStore", notes = "", produces = "application/json", response = ReadableContentPage.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableContentPage pageByName(@PathVariable("name") String name, @ApiIgnore MerchantStore merchantStore,
+	public ReadableContentPage pageByName(@PathVariable String name, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 
 		return contentFacade.getContentPageByName(name, merchantStore, language);
@@ -323,7 +323,7 @@ public class ContentApi {
 	@ApiOperation(httpMethod = "GET", value = "Get page content by code for a given MerchantStore", notes = "", produces = "application/json", response = ReadableContentPage.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableContentFull content(@PathVariable("code") String code, @ApiIgnore MerchantStore merchantStore,
+	public ReadableContentFull content(@PathVariable String code, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 
 		return contentFacade.getContent(code, merchantStore, language);
@@ -347,7 +347,7 @@ public class ContentApi {
 	@ApiOperation(httpMethod = "GET", value = "Manage box content by code for a code and a given MerchantStore", notes = "", produces = "application/json", response = List.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableContentBox manageBoxByCode(@PathVariable("code") String code, @ApiIgnore MerchantStore merchantStore,
+	public ReadableContentBox manageBoxByCode(@PathVariable String code, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 		return contentFacade.getContentBox(code, merchantStore, language);
 	}
@@ -356,7 +356,7 @@ public class ContentApi {
 	@ApiOperation(httpMethod = "GET", value = "Get box content by code for a code and a given MerchantStore", notes = "", produces = "application/json", response = List.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableContentBox getBoxByCode(@PathVariable("code") String code, @ApiIgnore MerchantStore merchantStore,
+	public ReadableContentBox getBoxByCode(@PathVariable String code, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 		return contentFacade.getContentBox(code, merchantStore, language);
 	}
@@ -394,7 +394,7 @@ public class ContentApi {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ContentFolder images(@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language,
-			@RequestParam(value = "path", required = false) String path, HttpServletRequest request,
+	@RequestParam(required = false) String path, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		//String decodedPath = decodeContentPath(path);
@@ -413,7 +413,7 @@ public class ContentApi {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public void upload(@RequestParam("file") MultipartFile file, @ApiIgnore MerchantStore merchantStore,
+	public void upload(@RequestParam MultipartFile file, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 
 		ContentFile f = new ContentFile();

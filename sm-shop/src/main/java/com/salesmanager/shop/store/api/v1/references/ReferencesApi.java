@@ -79,7 +79,7 @@ public class ReferencesApi {
 
   @GetMapping("/zones")
   public List<ReadableZone> getZones(
-      @RequestParam("code") String code, @ApiIgnore Language language, HttpServletRequest request) {
+	@RequestParam String code, @ApiIgnore Language language, HttpServletRequest request) {
     MerchantStore merchantStore = storeFacade.getByCode(request);
     return zoneFacade.getZones(code, language, merchantStore);
   }

@@ -9,11 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.business.services.catalog.pricing.PricingService;
 import com.salesmanager.core.business.services.customer.CustomerService;
@@ -72,9 +68,7 @@ public class OrderTotalApi {
    * @return
    * @throws Exception
    */
-  @RequestMapping(
-      value = {"/auth/cart/{id}/total"},
-      method = RequestMethod.GET)
+  @GetMapping({"/auth/cart/{id}/total"})
   @ResponseBody
   @ApiImplicitParams({
       @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -82,7 +76,7 @@ public class OrderTotalApi {
   })
   public ReadableOrderTotalSummary payment(
       @PathVariable final Long id,
-      @RequestParam(value = "quote", required = false) Long quote,
+	@RequestParam(required = false) Long quote,
       @ApiIgnore MerchantStore merchantStore,
       @ApiIgnore Language language,
       HttpServletRequest request,
@@ -162,9 +156,7 @@ public class OrderTotalApi {
    * @param response
    * @return
    */
-  @RequestMapping(
-      value = {"/cart/{code}/total"},
-      method = RequestMethod.GET)
+  @GetMapping({"/cart/{code}/total"})
   @ResponseBody
   @ApiImplicitParams({
       @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -172,7 +164,7 @@ public class OrderTotalApi {
   })
   public ReadableOrderTotalSummary calculateTotal(
       @PathVariable final String code,
-      @RequestParam(value = "quote", required = false) Long quote,
+	@RequestParam(required = false) Long quote,
       @ApiIgnore MerchantStore merchantStore,
       @ApiIgnore Language language,//possible postal code, province and country
       HttpServletResponse response) {

@@ -17,16 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.business.services.customer.CustomerService;
 import com.salesmanager.core.model.customer.Customer;
@@ -173,7 +164,7 @@ public class ShoppingCartApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = "/cart/{code}", method = RequestMethod.GET)
+	@GetMapping("/cart/{code}")
 	@ApiOperation(httpMethod = "GET", value = "Get a chopping cart by code", notes = "", produces = "application/json", response = ReadableShoppingCart.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -203,7 +194,7 @@ public class ShoppingCartApi {
 
 	@Deprecated
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = "/customers/{id}/cart", method = RequestMethod.POST)
+	@PostMapping("/customers/{id}/cart")
 	@ApiOperation(httpMethod = "POST", value = "Add product to a specific customer shopping cart", notes = "", produces = "application/json", response = ReadableShoppingCart.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -217,7 +208,7 @@ public class ShoppingCartApi {
 
 	@Deprecated
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = "/auth/customer/{id}/cart", method = RequestMethod.GET)
+	@GetMapping("/auth/customer/{id}/cart")
 	@ApiOperation(httpMethod = "GET", value = "Get a shopping cart by customer id. Customer must be authenticated", notes = "", produces = "application/json", response = ReadableShoppingCart.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -249,7 +240,7 @@ public class ShoppingCartApi {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = "/auth/customer/cart", method = RequestMethod.GET)
+	@GetMapping("/auth/customer/cart")
 	@ApiOperation(httpMethod = "GET", value = "Get a shopping cart by authenticated customer", notes = "", produces = "application/json", response = ReadableShoppingCart.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -289,7 +280,7 @@ public class ShoppingCartApi {
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en"),
 			@ApiImplicitParam(name = "body", dataType = "boolean", defaultValue = "false"), })
 	public ResponseEntity<ReadableShoppingCart> deleteCartItem(@PathVariable("code") String cartCode,
-			@PathVariable("sku") String sku, 
+	@PathVariable String sku, 
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language,
 			@RequestParam(defaultValue = "false") boolean body) throws Exception {
 

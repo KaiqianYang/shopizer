@@ -20,12 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.salesmanager.core.business.exception.ServiceException;
@@ -80,15 +75,15 @@ public class ProductImageApi {
 	 * @throws Exception
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product/{id}/image", "/auth/product/{id}/image" }, consumes = {
-			MediaType.MULTIPART_FORM_DATA_VALUE }, method = RequestMethod.POST)
+	@PostMapping(value = {"/private/product/{id}/image", "/auth/product/{id}/image"}, consumes = {
+MediaType.MULTIPART_FORM_DATA_VALUE})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void uploadImage(
 			@PathVariable Long id, 
 			@RequestParam(value = "file", required = true) MultipartFile[] files,
 			@RequestParam(value = "order", required = false, defaultValue = "0") Integer position,
-			@RequestParam(value = "defaultImage", required = false, defaultValue = "false") boolean defaultImage,
+	@RequestParam(required = false, defaultValue = "false") boolean defaultImage,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) throws IOException {
 
 		try {
@@ -147,8 +142,8 @@ public class ProductImageApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/image/{id}",
-			"/auth/product/images/{id}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/image/{id}",
+"/auth/product/images/{id}"})
 	public void deleteImage(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
@@ -171,7 +166,7 @@ public class ProductImageApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{id}/image/{imageId}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/{id}/image/{imageId}"})
 	public void deleteImage(@PathVariable Long id, @PathVariable Long imageId, @Valid NameEntity imageName,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
 
@@ -204,7 +199,7 @@ public class ProductImageApi {
 	 */
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/product/{productId}/images" }, method = RequestMethod.GET)
+	@GetMapping({"/product/{productId}/images"})
 	@ApiOperation(httpMethod = "GET", value = "Get images for a given product")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "List of ProductImage found", response = List.class) })
@@ -264,8 +259,8 @@ public class ProductImageApi {
 	 */
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = {"/private/product/{id}/image/{imageId}",
-"/auth/product/{id}/image/{imageId}"}, method = RequestMethod.PATCH)
+	@PatchMapping({"/private/product/{id}/image/{imageId}",
+"/auth/product/{id}/image/{imageId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void imageDetails(@PathVariable Long id, @PathVariable Long imageId,

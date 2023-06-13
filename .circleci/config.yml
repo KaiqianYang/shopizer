@@ -14,6 +14,7 @@ executors:
       - image: shopizerecomm/ci:java11
         auth:
           username: shopizerecomm
+          #TODO ASA-FindPassword: Don't save passwords or login information in files
           password: $DOCKERHUB_PASSWORD  
       
 working_directory: /tmp

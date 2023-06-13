@@ -50,17 +50,17 @@ public class MavenWrapperDownloader {
 
     public static void main(String args[]) {
         System.out.println("- Downloader started");
-        File baseDirectory = new File(args[0]);
-        System.out.println("- Using base directory: " + baseDirectory.getAbsolutePath());
+        /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File baseDirectory = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File(args[0]);
+        System.out.println("- Using base directory: " + /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/baseDirectory.getAbsolutePath());
 
         // If the maven-wrapper.properties exists, read it and check if it contains a custom
         // wrapperUrl parameter.
-        File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
+        /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File mavenWrapperPropertyFile = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
         String url = DEFAULT_DOWNLOAD_URL;
-        if(mavenWrapperPropertyFile.exists()) {
-            FileInputStream mavenWrapperPropertyFileInputStream = null;
+        if(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/mavenWrapperPropertyFile.exists()) {
+            /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream mavenWrapperPropertyFileInputStream = null;
             try {
-                mavenWrapperPropertyFileInputStream = new FileInputStream(mavenWrapperPropertyFile);
+                mavenWrapperPropertyFileInputStream = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileInputStream(mavenWrapperPropertyFile);
                 Properties mavenWrapperProperties = new Properties();
                 mavenWrapperProperties.load(mavenWrapperPropertyFileInputStream);
                 url = mavenWrapperProperties.getProperty(PROPERTY_NAME_WRAPPER_URL, url);
@@ -78,14 +78,14 @@ public class MavenWrapperDownloader {
         }
         System.out.println("- Downloading from: : " + url);
 
-        File outputFile = new File(baseDirectory.getAbsolutePath(), MAVEN_WRAPPER_JAR_PATH);
-        if(!outputFile.getParentFile().exists()) {
-            if(!outputFile.getParentFile().mkdirs()) {
+        /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File outputFile = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/baseDirectory.getAbsolutePath(), MAVEN_WRAPPER_JAR_PATH);
+        if(!/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*//*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/outputFile.getParentFile().exists()) {
+            if(!/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*//*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/outputFile.getParentFile().mkdirs()) {
                 System.out.println(
-                        "- ERROR creating output direcrory '" + outputFile.getParentFile().getAbsolutePath() + "'");
+                        "- ERROR creating output direcrory '" + /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*//*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/outputFile.getParentFile().getAbsolutePath() + "'");
             }
         }
-        System.out.println("- Downloading to: " + outputFile.getAbsolutePath());
+        System.out.println("- Downloading to: " + /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/outputFile.getAbsolutePath());
         try {
             downloadFileFromURL(url, outputFile);
             System.out.println("Done");
@@ -97,11 +97,11 @@ public class MavenWrapperDownloader {
         }
     }
 
-    private static void downloadFileFromURL(String urlString, File destination) throws Exception {
+    private static void downloadFileFromURL(String urlString, /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File destination) throws Exception {
         URL website = new URL(urlString);
         ReadableByteChannel rbc;
         rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream(destination);
+        /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileOutputStream fos = new /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/FileOutputStream(destination);
         fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         fos.close();
         rbc.close();
