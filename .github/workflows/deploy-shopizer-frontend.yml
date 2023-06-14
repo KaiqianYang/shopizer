@@ -1,0 +1,42 @@
+name: deploy-shopizer-frontend-asa
+on: workflow_dispatch
+env:
+  ASC_PACKAGE_PATH: ${{ github.workspace }}
+  AZURE_SUBSCRIPTION: a4ab3025-1b32-4394-92e0-d07c1ebf3787
+
+jobs:
+  deploy_to_production:
+    runs-on: ubuntu-latest
+    name: deploy to production
+    steps:
+      - name: Checkout GitHub Action
+        uses: actions/checkout@v2
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Set up Azure Spring Extension
+        run: az extension add --name spring
+
+      - name: Set up subscription
+        run: az account set --subscription ${{ env.AZURE_SUBSCRIPTION }}
+
+      - name: Deploy custom container image on shop
+        run: |
+          az spring app deploy \
+            --name shopizer-shop \
+            --resource-group rg-springlza-APPS \
+            --service spring-springlza-dev-iacs \
+            --container-registry ascdevmigrationacr.azurecr.io \
+            --container-image shopizer-shop:latest \
+
+      - name: Deploy custom container image on admin
+        run: |
+          az spring app deploy \
+            --name shopizer-admin \
+            --resource-group rg-springlza-APPS \
+            --service spring-springlza-dev-iacs \
+            --container-registry ascdevmigrationacr.azurecr.io \
+            --container-image shopizer-admin:latest
