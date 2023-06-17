@@ -63,7 +63,7 @@
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<beans:property name="ignoreUnresolvablePlaceholders"
-				value="false" />
+				value="true" />
 			<beans:property name="locations">
 				<beans:list>
 					<!--<beans:value>classpath:database.properties</beans:value>-->
@@ -79,7 +79,7 @@
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<beans:property name="ignoreUnresolvablePlaceholders"
-				value="false" />
+				value="true" />
 			<beans:property name="locations">
 				<beans:list>
 					<beans:value>classpath:database.properties</beans:value>
@@ -95,7 +95,7 @@
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<beans:property name="ignoreUnresolvablePlaceholders"
-				value="false" />
+				value="true" />
 			<beans:property name="locations">
 				<beans:list>
 					<beans:value>classpath:profiles/gcp/database.properties</beans:value>
@@ -112,7 +112,7 @@
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<beans:property name="ignoreUnresolvablePlaceholders"
-				value="false" />
+				value="true" />
 			<beans:property name="locations">
 				<beans:list>
 					<beans:value>classpath:profiles/cloud/database.properties</beans:value>
@@ -129,7 +129,7 @@
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<beans:property name="ignoreUnresolvablePlaceholders"
-				value="false" />
+				value="true" />
 			<beans:property name="locations">
 				<beans:list>
 					<beans:value>classpath:profiles/local/database.properties</beans:value>
@@ -145,7 +145,7 @@
 		<beans:bean
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<beans:property name="ignoreUnresolvablePlaceholders"
-				value="false" />
+				value="true" />
 			<beans:property name="locations">
 				<beans:list>
 					<beans:value>classpath:profiles/mysql/database.properties</beans:value>
