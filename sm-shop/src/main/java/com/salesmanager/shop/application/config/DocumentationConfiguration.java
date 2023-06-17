@@ -46,9 +46,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class DocumentationConfiguration {
 
-	public static final Contact DEFAULT_CONTACT = new Contact("Shopizer", "https://www.shopizer.com", "");
+	public static final Contact DEFAULT_CONTACT = new Contact("Shopizer", "https://shopizer.net", "");
 	
-	private static final String HOST = "localhost:8080";
+	private static final String HOST = "https://shopizer.net";
 
 	/**
 	 * http://localhost:8080/swagger-ui.html#/ http://localhost:8080/v2/api-docs
