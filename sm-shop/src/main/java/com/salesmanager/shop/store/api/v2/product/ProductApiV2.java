@@ -105,7 +105,7 @@ public class ProductApiV2 {
 	 */
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(value = { "/private/product" })
+	@PostMapping(value = { "/private/product","private/product/definition" })
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody Entity createV2(@Valid @RequestBody PersistableProductDefinition product,

@@ -75,8 +75,8 @@ public class ProductImageApi {
 	 * @throws Exception
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(value = {"/private/product/{id}/image", "/auth/product/{id}/image"}, consumes = {
-MediaType.MULTIPART_FORM_DATA_VALUE})
+	@RequestMapping(value = { "/private/product/{id}/image", "/private/product/{id}/images", "/auth/product/{id}/image" }, consumes = {
+			MediaType.MULTIPART_FORM_DATA_VALUE }, method = RequestMethod.POST)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void uploadImage(
