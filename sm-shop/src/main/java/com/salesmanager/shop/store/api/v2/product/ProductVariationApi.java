@@ -16,14 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.business.services.catalog.pricing.PricingService;
 import com.salesmanager.core.business.services.catalog.product.ProductService;
@@ -100,7 +93,7 @@ public class ProductVariationApi {
    * @return
    * @throws Exception
    */
-  @RequestMapping(value = "/product/{id}/variation", method = RequestMethod.POST)
+  @PostMapping("/product/{id}/variation")
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(
       httpMethod = "POST",
@@ -159,7 +152,7 @@ public class ProductVariationApi {
   }
 
   
-  @RequestMapping(value = "/category/{id}/variations", method = RequestMethod.GET)
+  @GetMapping("/category/{id}/variations")
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(
       httpMethod = "GET",
@@ -184,7 +177,7 @@ public class ProductVariationApi {
   }
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product/variation" }, method = RequestMethod.POST)
+	@PostMapping({"/private/product/variation"})
 	@ApiOperation(
 		      httpMethod = "POST",
 		      value = "Creates a new product variant",
@@ -210,7 +203,7 @@ public class ProductVariationApi {
 			@ApiImplicitParam(name = "lang", dataType = "string", defaultValue = "en") })
 	@ApiOperation(httpMethod = "GET", value = "Check if option set code already exists", notes = "", response = EntityExists.class)
 	public ResponseEntity<EntityExists> exists(
-			@RequestParam(value = "code") String code,
+	@RequestParam String code,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
 
@@ -220,7 +213,7 @@ public class ProductVariationApi {
 
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/variation/{variationId}" }, method = RequestMethod.GET)
+	@GetMapping({"/private/product/variation/{variationId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	@ResponseBody
@@ -235,7 +228,7 @@ public class ProductVariationApi {
 
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/variation/{variationId}" }, method = RequestMethod.PUT)
+	@PutMapping({"/private/product/variation/{variationId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void update(
@@ -251,7 +244,7 @@ public class ProductVariationApi {
 
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/variation/{variationId}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/variation/{variationId}"})
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -266,15 +259,15 @@ public class ProductVariationApi {
 	
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/variations" }, method = RequestMethod.GET)
+	@GetMapping({"/private/product/variations"})
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody ReadableEntityList<ReadableProductVariation> list(
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue="0") Integer page,
-		    @RequestParam(value = "count", required = false, defaultValue="10") Integer count) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 		return productVariationFacade.list(merchantStore, language, page, count);
 

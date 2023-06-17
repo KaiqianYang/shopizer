@@ -106,7 +106,7 @@ public class ContentAdministrationApi {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ContentFolder folder(
-			@RequestParam(value = "path", required = false) String path,
+	@RequestParam(required = false) String path,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) throws Exception {
 		String decodedPath = decodeContentPath(path);
@@ -126,13 +126,13 @@ public class ContentAdministrationApi {
 			@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public FileStatus upload(
-			@RequestParam(value = "qqfile", required = true) MultipartFile qqfile,
-			@RequestParam(value = "qquuid", required = true) String qquuid,
-			@RequestParam(value = "qqfilename", required = true) String qqfilename,
-			@RequestParam(value = "qqtotalfilesize", required = false) Long qqtotalfilesize,
-			@RequestParam(value = "parentPath", required = false) String parentPath,
-			@RequestParam(value = "qqpartindex", required = false) Integer qqpartindex,
-			@RequestParam(value = "qqtotalparts", required = false) Integer qqtotalparts,
+	@RequestParam(required = true) MultipartFile qqfile,
+	@RequestParam(required = true) String qquuid,
+	@RequestParam(required = true) String qqfilename,
+	@RequestParam(required = false) Long qqtotalfilesize,
+	@RequestParam(required = false) String parentPath,
+	@RequestParam(required = false) Integer qqpartindex,
+	@RequestParam(required = false) Integer qqtotalparts,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
 		
@@ -165,7 +165,7 @@ public class ContentAdministrationApi {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody String download(
-			@RequestParam(value = "path", required = true) String path,
+	@RequestParam(required = true) String path,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
 		String fileName = path.substring(path.lastIndexOf("/")+1, path.length());
@@ -189,8 +189,8 @@ public class ContentAdministrationApi {
 			@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public FileStatus rename(
-			@RequestParam(value = "path", required = true) String path,
-			@RequestParam(value = "newName", required = true) String newName,
+	@RequestParam(required = true) String path,
+	@RequestParam(required = true) String newName,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
 
@@ -216,7 +216,7 @@ public class ContentAdministrationApi {
 			@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public FileStatus remove(
-			@RequestParam(value = "path", required = true) String path,
+	@RequestParam(required = true) String path,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
 

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -140,8 +139,8 @@ public class ProductVariantGroupApi {
 			@PathVariable final Long id,
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-	@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 		String authenticatedUser = userFacade.authenticatedUser();
 		if (authenticatedUser == null) {
@@ -156,13 +155,13 @@ public class ProductVariantGroupApi {
 
 	// add image
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product/productVariantGroup/{id}/image" }, consumes = {
-			MediaType.MULTIPART_FORM_DATA_VALUE }, method = RequestMethod.POST)
+	@PostMapping(value = {"/private/product/productVariantGroup/{id}/image"}, consumes = {
+MediaType.MULTIPART_FORM_DATA_VALUE})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void addImage(
-			@PathVariable Long id, 
-			@RequestParam(value = "file", required = true) MultipartFile file,
+			@PathVariable Long id,
+	@RequestParam(required = true) MultipartFile file,
 			@RequestParam(value = "order", required = false, defaultValue = "0") Integer position,
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language) {
@@ -181,8 +180,8 @@ public class ProductVariantGroupApi {
 
 	// remove image
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = {
-			"/private/product/productVariantGroup/{id}/image/{imageId}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({
+"/private/product/productVariantGroup/{id}/image/{imageId}"})
 	public void removeImage(@PathVariable Long id, @PathVariable Long imageId, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 

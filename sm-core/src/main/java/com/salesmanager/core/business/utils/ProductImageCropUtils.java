@@ -152,7 +152,7 @@ public class ProductImageCropUtils {
 	}
 	
 	
-	public File getCroppedImage(File originalFile, int x1, int y1, int width,
+	public /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File getCroppedImage(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File originalFile, int x1, int y1, int width,
 			int height) throws Exception {
 		
 		if(!this.cropeable) {
@@ -160,14 +160,14 @@ public class ProductImageCropUtils {
 		}
 
 		FileNameMap fileNameMap = URLConnection.getFileNameMap();
-		String contentType = fileNameMap.getContentTypeFor(originalFile.getName());
+		String contentType = fileNameMap.getContentTypeFor(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/originalFile.getName());
 		
 		String extension = contentType.substring(contentType.indexOf("/"),contentType.length());
 		
 		BufferedImage image = ImageIO.read(originalFile);
 		BufferedImage out = image.getSubimage(x1, y1, width, height);
-		File tempFile = File.createTempFile("temp", "." + extension );
-		tempFile.deleteOnExit();
+		/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File tempFile = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*//*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File.createTempFile("temp", "." + extension );
+		/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/tempFile.deleteOnExit();
 		ImageIO.write(out, extension, tempFile);
 		return tempFile;
 	}

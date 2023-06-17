@@ -21,15 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.business.services.catalog.category.CategoryService;
 import com.salesmanager.core.business.services.catalog.product.ProductService;
@@ -100,11 +92,7 @@ public class ProductApi {
 	 * @return Entity
 	 */
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product", "/auth/products" }, // private
-																			// for
-			// adding
-			// products
-			method = RequestMethod.POST)
+	@PostMapping({"/private/product", "/auth/products"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody Entity create(@Valid @RequestBody PersistableProduct product,
@@ -118,7 +106,7 @@ public class ProductApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{id}", "/auth/product/{id}" }, method = RequestMethod.PUT)
+	@PutMapping({"/private/product/{id}", "/auth/product/{id}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	@ApiOperation(httpMethod = "PUT", value = "Update product", notes = "", produces = "application/json", response = PersistableProduct.class)
@@ -162,7 +150,7 @@ public class ProductApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{id}", "/auth/product/{id}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/{id}", "/auth/product/{id}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void delete(@PathVariable Long id, @ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
@@ -182,30 +170,30 @@ public class ProductApi {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	@GetMapping("/products")
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ReadableProductList list(
-			@RequestParam(value = "lang", required = false) String lang,
-			@RequestParam(value = "category", required = false) Long category,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "sku", required = false) String sku,
-			@RequestParam(value = "manufacturer", required = false) Long manufacturer,
+	@RequestParam(required = false) String lang,
+	@RequestParam(required = false) Long category,
+	@RequestParam(required = false) String name,
+	@RequestParam(required = false) String sku,
+	@RequestParam(required = false) Long manufacturer,
 			@RequestParam(value = "optionValues", required = false) List<Long> optionValueIds,
-			@RequestParam(value = "status", required = false) String status,
-			@RequestParam(value = "owner", required = false) Long owner,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page, // current
-			@RequestParam(value = "origin", required = false, defaultValue = ProductCriteria.ORIGIN_SHOP) String origin,
-			// page
-			// 0
-			// ..
-			// n
-			// allowing
-			// navigation
-			@RequestParam(value = "count", required = false, defaultValue = "100") Integer count, // count
-			@RequestParam(value = "slug", required = false) String slug, // category slug
-			@RequestParam(value = "available", required = false) Boolean available,
+	@RequestParam(required = false) String status,
+	@RequestParam(required = false) Long owner,
+	@RequestParam(required = false, defaultValue = "0") Integer page, // current
+			@RequestParam(required = false, defaultValue = ProductCriteria.ORIGIN_SHOP) String origin,
+	// page
+	// 0
+	// ..
+	// n
+	// allowing
+	// navigation
+	@RequestParam(required = false, defaultValue = "100") Integer count, // count
+			@RequestParam(required = false) String slug, // category slug
+			@RequestParam(required = false) Boolean available,
 			// per
 			// page
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language, HttpServletRequest request,
@@ -302,14 +290,14 @@ public class ProductApi {
 	 *                   /api/product/123
 	 */
 
-	@RequestMapping(value = {"/product/{id}","/products/{id}"}, method = RequestMethod.GET)
+	@GetMapping({"/product/{id}", "/products/{id}"})
 	@ApiOperation(httpMethod = "GET", value = "Get a product by id", notes = "For administration and shop purpose. Specifying ?merchant is required otherwise it falls back to DEFAULT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Single product found", response = ReadableProduct.class) })
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableProduct get(@PathVariable final Long id, @RequestParam(value = "lang", required = false) String lang,
+	public ReadableProduct get(@PathVariable final Long id, @RequestParam(required = false) String lang,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language, HttpServletResponse response)
 			throws Exception {
 		ReadableProduct product = productCommonFacade.getProduct(merchantStore, id, language);
@@ -385,7 +373,7 @@ public class ProductApi {
 	@GetMapping(value = { "/private/product/unique" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT") })
 	@ApiOperation(httpMethod = "GET", value = "Check if product code already exists", notes = "", response = EntityExists.class)
-	public ResponseEntity<EntityExists> exists(@RequestParam(value = "code") String code,
+	public ResponseEntity<EntityExists> exists(@RequestParam String code,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
 
 		boolean exists = productCommonFacade.exists(code, merchantStore);
@@ -394,7 +382,7 @@ public class ProductApi {
 	}
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(value = { "/private/product/{productId}/category/{categoryId}"}, method = RequestMethod.POST)
+	@PostMapping({"/private/product/{productId}/category/{categoryId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void addProductToCategory(@PathVariable Long productId,
@@ -433,7 +421,7 @@ public class ProductApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{productId}/category/{categoryId}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/{productId}/category/{categoryId}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void removeProductFromCategory(@PathVariable Long productId,
@@ -480,7 +468,7 @@ public class ProductApi {
 	 */
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{id}", "/auth/product/{id}" }, method = RequestMethod.PATCH)
+	@PatchMapping({"/private/product/{id}", "/auth/product/{id}"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	@ApiOperation(httpMethod = "POST", value = "Patch product sort order", notes = "Change product sortOrder")

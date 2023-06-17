@@ -10,15 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.business.exception.ServiceException;
 import com.salesmanager.core.business.services.shipping.ShippingService;
@@ -64,7 +56,7 @@ public class ShippingConfigurationApi {
 	private ShippingService shippingService;
 
 	@ApiOperation(httpMethod = "GET", value = "Get shipping origin for a specific merchant store", notes = "", produces = "application/json", response = ReadableAddress.class)
-	@RequestMapping(value = { "/private/shipping/origin" }, method = RequestMethod.GET)
+	@GetMapping({"/private/shipping/origin"})
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public ReadableAddress shippingOrigin(@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
@@ -77,7 +69,7 @@ public class ShippingConfigurationApi {
 
 	}
 
-	@RequestMapping(value = { "/private/shipping/origin" }, method = RequestMethod.POST)
+	@PostMapping({"/private/shipping/origin"})
 	@ResponseStatus(HttpStatus.OK)
 	public void saveShippingOrigin(@RequestBody PersistableAddress address, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
@@ -92,7 +84,7 @@ public class ShippingConfigurationApi {
 
 	// list packaging
 	@ApiOperation(httpMethod = "GET", value = "Get list of configured packages types for a specific merchant store", notes = "", produces = "application/json", response = List.class)
-	@RequestMapping(value = { "/private/shipping/packages" }, method = RequestMethod.GET)
+	@GetMapping({"/private/shipping/packages"})
 	@ResponseStatus(HttpStatus.OK)
 	public List<PackageDetails> listPackages(@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
 
@@ -106,7 +98,7 @@ public class ShippingConfigurationApi {
 
 	// get packaging
 	@ApiOperation(httpMethod = "GET", value = "Get package details", notes = "", produces = "application/json", response = PackageDetails.class)
-	@RequestMapping(value = { "/private/shipping/package/{code}" }, method = RequestMethod.GET)
+	@GetMapping({"/private/shipping/package/{code}"})
 	@ResponseStatus(HttpStatus.OK)
 	public PackageDetails getPackage(@PathVariable String code, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
@@ -121,7 +113,7 @@ public class ShippingConfigurationApi {
 
 	// create packaging
 	@ApiOperation(httpMethod = "POST", value = "Create new package specification", notes = "", produces = "application/json", response = Void.class)
-	@RequestMapping(value = { "/private/shipping/package" }, method = RequestMethod.POST)
+	@PostMapping({"/private/shipping/package"})
 	@ResponseStatus(HttpStatus.OK)
 	public void createPackage(@RequestBody PackageDetails details, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
@@ -136,7 +128,7 @@ public class ShippingConfigurationApi {
 
 	// edit packaging
 	@ApiOperation(httpMethod = "PUT", value = "Edit package specification", notes = "", produces = "application/json", response = Void.class)
-	@RequestMapping(value = { "/private/shipping/package/{code}" }, method = RequestMethod.PUT)
+	@PutMapping({"/private/shipping/package/{code}"})
 	@ResponseStatus(HttpStatus.OK)
 	public void updatePackage(@PathVariable String code, @RequestBody PackageDetails details,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
@@ -151,7 +143,7 @@ public class ShippingConfigurationApi {
 
 	// delete packaging
 	@ApiOperation(httpMethod = "DELETE", value = "Delete a package specification", notes = "", produces = "application/json", response = Void.class)
-	@RequestMapping(value = { "/private/shipping/package/{code}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/shipping/package/{code}"})
 	@ResponseStatus(HttpStatus.OK)
 	public void deletePackage(@PathVariable String code, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {

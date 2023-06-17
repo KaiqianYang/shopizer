@@ -172,9 +172,9 @@ public class UserApi {
 	public ReadableUserList list(
 			@ApiIgnore MerchantStore merchantStore, 
 			@ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "20") Integer count,
-			@RequestParam(value = "emailAddress", required = false) String emailAddress) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "20") Integer count,
+	@RequestParam(required = false) String emailAddress) {
 
 		String authenticatedUser = userFacade.authenticatedUser();
 		if (authenticatedUser == null) {

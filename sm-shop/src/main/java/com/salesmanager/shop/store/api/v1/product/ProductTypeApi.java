@@ -52,8 +52,8 @@ public class ProductTypeApi {
 	@ApiOperation(httpMethod = "GET", value = "Get product types list", notes = "", produces = "application/json", response = List.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
-	public ReadableProductTypeList list(@RequestParam(name = "count", defaultValue = "10") int count,
-			@RequestParam(name = "page", defaultValue = "0") int page, @ApiIgnore MerchantStore merchantStore,
+	public ReadableProductTypeList list(@RequestParam(defaultValue = "10") int count,
+	@RequestParam(defaultValue = "0") int page, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 
 		return productTypeFacade.getByMerchant(merchantStore, language, count, page);

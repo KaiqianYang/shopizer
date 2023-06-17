@@ -12,16 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.model.merchant.MerchantStore;
 import com.salesmanager.core.model.reference.language.Language;
@@ -144,7 +135,7 @@ public class ProductVariantApi {
 	public @ResponseBody ReadableProductVariant get(
 			@PathVariable final Long id, 
 			@PathVariable Long variantId,
-			@RequestParam(value = "lang", required = false) String lang, 
+	@RequestParam(required = false) String lang, 
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) throws Exception {
 
@@ -153,20 +144,20 @@ public class ProductVariantApi {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{id}/variants" }, method = RequestMethod.GET)
+	@GetMapping({"/private/product/{id}/variants"})
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody ReadableEntityList<ReadableProductVariant> list(@PathVariable final Long id,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 		return productVariantFacade.list(id, merchantStore, language, page, count);
 
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = { "/private/product/{id}/variant/{variantId}" }, method = RequestMethod.DELETE)
+	@DeleteMapping({"/private/product/{id}/variant/{variantId}"})
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
