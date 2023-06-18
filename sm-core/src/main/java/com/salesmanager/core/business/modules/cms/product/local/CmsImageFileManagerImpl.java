@@ -1,13 +1,18 @@
 package com.salesmanager.core.business.modules.cms.product.local;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.salesmanager.core.business.constants.Constants;
@@ -268,9 +273,49 @@ public class CmsImageFileManagerImpl
 
   private OutputContentFile getProductImage(String merchantStoreCode, String productCode,
       String imageName, String size) throws ServiceException {
+    InputStream input = null;
+    OutputContentFile contentImage = new OutputContentFile();
+    try {
 
-    return null;
+      FileNameMap fileNameMap = URLConnection.getFileNameMap();
+      String rootPath = this.buildRootPath();
 
+      // node path
+      StringBuilder nodePath = new StringBuilder();
+      nodePath.append(rootPath).append(merchantStoreCode);
+
+      // product path
+      nodePath.append(Constants.SLASH).append(productCode)
+          .append(Constants.SLASH).append(size).append(Constants.SLASH).append(imageName);;
+
+      Path imgPath = Paths.get(nodePath.toString());
+      if (!Files.exists(imgPath)) {
+        LOGGER.warn("image " + nodePath.toString() + " does not exists");
+        return null;
+      }
+      byte[] bytes = Files.readAllBytes(imgPath);
+
+      input = new ByteArrayInputStream(bytes);
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      IOUtils.copy(input, output);
+
+      String contentType = fileNameMap.getContentTypeFor(imageName);
+
+      contentImage.setFile(output);
+      contentImage.setMimeType(contentType);
+      contentImage.setFileName(imageName);
+
+      return contentImage;
+    } catch (Exception ex) {
+      throw new ServiceException(ex);
+    } finally {
+      if (input != null) {
+        try {
+          input.close();
+        } catch (IOException e) {
+        }
+      }
+    }
   }
 
 
