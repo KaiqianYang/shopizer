@@ -27,7 +27,7 @@ public class LocationImageConfig {
 	  
 	if(!StringUtils.isEmpty(method) && !method.equals("default")) {
 	    CloudFilePathUtils cloudFilePathUtils = new CloudFilePathUtils();
-	    cloudFilePathUtils.setBasePath(contentUrl);
+	    cloudFilePathUtils.setBasePath(staticPath);
 	    cloudFilePathUtils.setContentUrlPath(contentUrl);
 	    return cloudFilePathUtils;
 
