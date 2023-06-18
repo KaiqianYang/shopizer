@@ -48,7 +48,7 @@ public class DocumentationConfiguration {
 
 	public static final Contact DEFAULT_CONTACT = new Contact("Shopizer", "https://shopizer.net", "");
 	
-	private static final String HOST = "https://shopizer.net";
+	private static final String HOST = "shopizer.net";
 
 	/**
 	 * http://localhost:8080/swagger-ui.html#/ http://localhost:8080/v2/api-docs
