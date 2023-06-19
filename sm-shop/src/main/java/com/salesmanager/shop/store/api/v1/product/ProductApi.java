@@ -2,6 +2,8 @@ package com.salesmanager.shop.store.api.v1.product;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import com.salesmanager.shop.model.catalog.product.ProductPriceRequest;
+import com.salesmanager.shop.model.catalog.product.ReadableProductPrice;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -319,7 +321,6 @@ public class ProductApi {
 	 * @param language
 	 * @return
 	 */
-	/**
 	@RequestMapping(value = "/product/{id}/price", method = RequestMethod.POST)
 	@ApiOperation(httpMethod = "POST", value = "Calculate product price with variants", notes = "Product price calculation from variants")
 	@ApiResponses(value = {
@@ -328,13 +329,19 @@ public class ProductApi {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ReadableProductPrice price(@PathVariable final Long id,
-			@RequestBody ProductPriceRequest variants,
-			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
+									  @RequestBody ProductPriceRequest variants,
+									  @ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language, HttpServletResponse response)
+		throws Exception {
 
-		return productFacade.getProductPrice(id, variants, merchantStore, language);
+		ReadableProduct product = productCommonFacade.getProduct(merchantStore, id, language);
 
+		if (product == null) {
+			response.sendError(404, "Product price not fount for id " + id);
+			return null;
+		}
+
+		return product.getProductPrice();
 	}
-	**/
 
 	/**
 	 * API for getting a product
