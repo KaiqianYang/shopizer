@@ -94,6 +94,13 @@
 				<artifactId>spring-boot-starter-cache</artifactId>
 			</dependency>
 			<dependency>
+				<groupId>com.azure.spring</groupId>
+				<artifactId>spring-cloud-azure-dependencies</artifactId>
+				<version>4.8.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
 				<groupId>com.shopizer</groupId>
 				<artifactId>sm-core</artifactId>
 				<version>3.2.5</version>
