@@ -199,7 +199,7 @@ MediaType.MULTIPART_FORM_DATA_VALUE})
 	 */
 	
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping({"/product/{productId}/images"})
+	@GetMapping({"/product/{productId}/images", "/products/{productId}/images"})
 	@ApiOperation(httpMethod = "GET", value = "Get images for a given product")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "List of ProductImage found", response = List.class) })
