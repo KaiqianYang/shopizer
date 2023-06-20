@@ -60,7 +60,7 @@ public class ProductTypeApi {
 
 	}
 
-	@GetMapping(value = "/private/product/type/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = {"/private/product/type/{id}", "/private/products/type/{id}"}, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "GET", value = "Get product type", notes = "", produces = "application/json", response = ReadableProductType.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -83,7 +83,7 @@ public class ProductTypeApi {
 
 	}
 
-	@PostMapping(value = "/private/product/type", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = {"/private/product/type", "/private/products/type"}, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "POST", value = "Create product type", notes = "", produces = "application/json", response = Entity.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -97,7 +97,7 @@ public class ProductTypeApi {
 
 	}
 
-	@PutMapping(value = "/private/product/type/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = {"/private/product/type/{id}", "/private/products/type/{id}"}, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "PUT", value = "Update product type", notes = "", produces = "application/json", response = Void.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -108,7 +108,7 @@ public class ProductTypeApi {
 
 	}
 
-	@DeleteMapping(value = "/private/product/type/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = {"/private/product/type/{id}", "/private/products/type/{id}"}, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "DELETE", value = "Delete product type", notes = "", produces = "application/json", response = Void.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
