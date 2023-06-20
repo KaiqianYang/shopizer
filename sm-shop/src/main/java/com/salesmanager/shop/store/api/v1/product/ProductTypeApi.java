@@ -48,7 +48,7 @@ public class ProductTypeApi {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductTypeApi.class);
 
-	@GetMapping(value = "/private/product/types", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = {"/private/product/types", "/private/products/types"}, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(httpMethod = "GET", value = "Get product types list", notes = "", produces = "application/json", response = List.class)
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
