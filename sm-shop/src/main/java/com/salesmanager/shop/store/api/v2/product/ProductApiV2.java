@@ -105,7 +105,7 @@ public class ProductApiV2 {
 	 */
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping(value = { "/private/product","private/product/definition" })
+	@PostMapping(value = { "/private/product","/private/product/definition" })
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public @ResponseBody Entity createV2(@Valid @RequestBody PersistableProductDefinition product,
@@ -121,7 +121,7 @@ public class ProductApiV2 {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@PutMapping(value = { "/private/product/{id}" })
+	@PutMapping(value = { "/private/product/{id}", "/private/product/definition/{id}" })
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public void updateV2(@PathVariable Long id, 
