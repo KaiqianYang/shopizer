@@ -48,8 +48,8 @@ public class CatalogApi {
   public ReadableEntityList<ReadableCatalog> getCatalogs(
       @ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language,
       Optional<String> code,
-      @RequestParam(value = "page", required = false, defaultValue="0") Integer page,
-      @RequestParam(value = "count", required = false, defaultValue="10") Integer count) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
       return catalogFacade.getListCatalogs(code, merchantStore, language, page, count);
 
@@ -65,7 +65,7 @@ public class CatalogApi {
   @ApiOperation(httpMethod = "GET", value = "Check if catalog code already exists", notes = "",
       response = EntityExists.class)
   public ResponseEntity<EntityExists> exists(
-      @RequestParam(value = "code") String code,
+	@RequestParam String code,
       @ApiIgnore MerchantStore merchantStore,
       @ApiIgnore Language language) {
       boolean existByCode = catalogFacade.uniqueCatalog(code, merchantStore);
@@ -189,11 +189,11 @@ public class CatalogApi {
       @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
       @ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en")})
   public ReadableEntityList<ReadableCatalogCategoryEntry> getCatalogEntry(
-	  @PathVariable(value="id") Long id,
+	@PathVariable Long id,
       @ApiIgnore MerchantStore merchantStore,
       @ApiIgnore Language language,
-      @RequestParam(value = "page", required = false, defaultValue="0") Integer page,
-      @RequestParam(value = "count", required = false, defaultValue="10") Integer count,
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count,
       HttpServletRequest request) {
 
 	  return catalogFacade.listCatalogEntry(catalogEntryFilter(request), id, merchantStore, language, page, count);

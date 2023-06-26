@@ -39,13 +39,13 @@ public class ContentImagesTest extends com.salesmanager.test.common.AbstractSale
 
 		MerchantStore store = merchantService.getByCode(MerchantStore.DEFAULT_STORE);
 
-		final File file1 = new File("C:/doc/Hadoop.jpg");
+		final File file1 = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new File(/*~~(TODO ASA-WindowsFilePath: this file system path is Microsoft Windows platform dependent)~~>*/"C:/doc/Hadoop.jpg");
 
 		if (!file1.exists() || !file1.canRead()) {
 			throw new ServiceException("Can't read" + file1.getAbsolutePath());
 		}
 
-		byte[] is = IOUtils.toByteArray(new FileInputStream(file1));
+		byte[] is = IOUtils.toByteArray(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new FileInputStream(file1));
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(is);
 		InputContentFile cmsContentImage = new InputContentFile();
 
@@ -67,7 +67,7 @@ public class ContentImagesTest extends com.salesmanager.test.common.AbstractSale
 		OutputContentFile image = contentService.getContentFile(store.getCode(), FileContentType.LOGO, logo);
 
 		// print image
-		OutputStream outputStream = new FileOutputStream("C:/doc/logo-" + image.getFileName());
+		OutputStream outputStream = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new FileOutputStream(/*~~(TODO ASA-WindowsFilePath: this file system path is Microsoft Windows platform dependent)~~>*/"C:/doc/logo-" + image.getFileName());
 
 		ByteArrayOutputStream baos = image.getFile();
 		baos.writeTo(outputStream);

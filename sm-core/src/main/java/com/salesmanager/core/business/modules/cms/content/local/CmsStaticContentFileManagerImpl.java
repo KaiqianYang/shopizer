@@ -134,7 +134,7 @@ public class CmsStaticContentFileManagerImpl implements ContentAssetsManager {
 
 			// Path path = Paths.get(nodePath.toString());
 
-			Files.copy(inputStaticContentData.getFile(), path, StandardCopyOption.REPLACE_EXISTING);
+			/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/Files.copy(inputStaticContentData.getFile(), path, StandardCopyOption.REPLACE_EXISTING);
 
 			// String nodePath = this.getNodePath(merchantStoreCode,
 			// inputStaticContentData.getFileContentType());
@@ -212,7 +212,7 @@ public class CmsStaticContentFileManagerImpl implements ContentAssetsManager {
 
 				Path path = Paths.get(nodePath.toString());
 
-				Files.copy(inputStaticContentData.getFile(), path, StandardCopyOption.REPLACE_EXISTING);
+				/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/Files.copy(inputStaticContentData.getFile(), path, StandardCopyOption.REPLACE_EXISTING);
 
 				// String nodePath = this.getNodePath(merchantStoreCode,
 				// inputStaticContentData.getFileContentType());

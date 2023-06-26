@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
@@ -38,7 +38,7 @@ public class FilesController extends AbstractController {
 	 * @throws IOException
 	 * @throws ServiceException
 	 */
-	@RequestMapping("/static/files/{storeCode}/{fileName}.{extension}")
+	@GetMapping("/static/files/{storeCode}/{fileName}.{extension}")
 	public @ResponseBody byte[] downloadFile(@PathVariable final String storeCode, @PathVariable final String fileName, @PathVariable final String extension, HttpServletRequest request, HttpServletResponse response) throws IOException, ServiceException {
 
 		// example -> /files/<store code>/myfile.css
@@ -68,7 +68,7 @@ public class FilesController extends AbstractController {
 	 * @throws Exception
 	 */
 	@PreAuthorize("hasRole('PRODUCTS')")
-	@RequestMapping("/admin/files/downloads/{storeCode}/{fileName}.{extension}")
+	@GetMapping("/admin/files/downloads/{storeCode}/{fileName}.{extension}")
 	public @ResponseBody byte[] downloadProduct(@PathVariable final String storeCode, @PathVariable final String fileName, @PathVariable final String extension, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		FileContentType fileType = FileContentType.PRODUCT_DIGITAL;

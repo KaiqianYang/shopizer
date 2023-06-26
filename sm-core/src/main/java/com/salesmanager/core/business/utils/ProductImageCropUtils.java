@@ -166,7 +166,7 @@ public class ProductImageCropUtils {
 		
 		BufferedImage image = ImageIO.read(originalFile);
 		BufferedImage out = image.getSubimage(x1, y1, width, height);
-		File tempFile = File.createTempFile("temp", "." + extension );
+		File tempFile = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/File.createTempFile("temp", "." + extension );
 		tempFile.deleteOnExit();
 		ImageIO.write(out, extension, tempFile);
 		return tempFile;

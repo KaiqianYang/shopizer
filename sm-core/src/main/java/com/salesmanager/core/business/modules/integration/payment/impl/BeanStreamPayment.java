@@ -355,10 +355,10 @@ public class BeanStreamPayment implements PaymentModule {
 			in = new DataInputStream(conn.getInputStream());
 			int rc = conn.getResponseCode();
 			if (rc != -1) {
-				is = new BufferedReader(new InputStreamReader(conn
+				is = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new BufferedReader(/*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new InputStreamReader(conn
 						.getInputStream()));
 				String _line = null;
-				while (((_line = is.readLine()) != null)) {
+				while (((_line = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/is.readLine()) != null)) {
 					respText = respText + _line;
 				}
 				

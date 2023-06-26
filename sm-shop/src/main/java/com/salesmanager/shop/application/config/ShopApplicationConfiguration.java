@@ -47,7 +47,7 @@ public class ShopApplicationConfiguration implements WebMvcConfigurer {
 
   @EventListener(ApplicationReadyEvent.class)
   public void applicationReadyCode() {
-    String workingDir = System.getProperty("user.dir");
+    String workingDir = /*~~(TODO ASA-JavaSystemConfig: review usage of system properties and externalize by configuring jvm options in azure spring apps)~~>*/System.getProperty("user.dir");
     logger.info("Current working directory : " + workingDir);
   }
 

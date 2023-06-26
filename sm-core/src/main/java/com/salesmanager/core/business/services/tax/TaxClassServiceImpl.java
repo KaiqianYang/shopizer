@@ -51,7 +51,7 @@ public class TaxClassServiceImpl extends SalesManagerEntityServiceImpl<Long, Tax
 	
 	@Override
 	public TaxClass getById(Long id) {
-		return taxClassRepository.getOne(id);
+		return taxClassRepository.getById(id);
 	}
 
 	@Override

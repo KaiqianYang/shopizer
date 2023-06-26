@@ -116,8 +116,8 @@ public class CustomerApi {
 	@GetMapping("/private/customers")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "string", defaultValue = "en") })
-	public ReadableCustomerList list(@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "count", required = false) Integer count, @ApiIgnore MerchantStore merchantStore,
+	public ReadableCustomerList list(@RequestParam(required = false) Integer page,
+	@RequestParam(required = false) Integer count, @ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language) {
 		CustomerCriteria customerCriteria = createCustomerCriteria(page, count);
 		return customerFacade.getListByStore(merchantStore, customerCriteria, language);

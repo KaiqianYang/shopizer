@@ -81,7 +81,7 @@ public class CmsImageFileManagerImpl
   }
 
   /**
-   * root/products/<merchant id>/<product id>/1.jpg
+   * root/products/<merchant id=>/<product id=>/1.jpg
    */
 
   @Override
@@ -126,7 +126,7 @@ public class CmsImageFileManagerImpl
       Path path = Paths.get(nodePath.toString());
       InputStream isFile = contentImage.getFile();
 
-      Files.copy(isFile, path, StandardCopyOption.REPLACE_EXISTING);
+      /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/Files.copy(isFile, path, StandardCopyOption.REPLACE_EXISTING);
 
 
     } catch (Exception e) {
@@ -293,7 +293,7 @@ public class CmsImageFileManagerImpl
         LOGGER.warn("image " + nodePath.toString() + " does not exists");
         return null;
       }
-      byte[] bytes = Files.readAllBytes(imgPath);
+      byte[] bytes = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/Files.readAllBytes(imgPath);
 
       input = new ByteArrayInputStream(bytes);
       ByteArrayOutputStream output = new ByteArrayOutputStream();

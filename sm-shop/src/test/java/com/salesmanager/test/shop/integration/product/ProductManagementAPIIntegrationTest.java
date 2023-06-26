@@ -297,7 +297,7 @@ public class ProductManagementAPIIntegrationTest extends ServicesTestSupport {
 		final String image = "/Users/carlsamson/Documents/csti/IMG_4626.jpg";
 		// String image = "C:/personal/em/pictures-misc/IMG_2675.JPG";
 
-		final File imgPath = new File(image);
+		final File imgPath = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new File(image);
 
 		// PersistableImage persistableImage = new PersistableImage();
 
@@ -382,7 +382,7 @@ public class ProductManagementAPIIntegrationTest extends ServicesTestSupport {
 	/** private helper methods **/
 	public byte[] extractBytes(final File imgPath) throws Exception {
 
-		final FileInputStream fis = new FileInputStream(imgPath);
+		final FileInputStream fis = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new FileInputStream(imgPath);
 
 		final BufferedInputStream inputStream = new BufferedInputStream(fis);
 		final byte[] fileBytes = new byte[(int) imgPath.length()];

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -153,7 +152,7 @@ public class ProductGroupApi {
   }
 
   @ResponseStatus(HttpStatus.CREATED)
-  @RequestMapping(value = "/private/products/{productId}/group/{code}", method = RequestMethod.POST)
+	@PostMapping("/private/products/{productId}/group/{code}")
   @ApiImplicitParams({
       @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
       @ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en")
@@ -195,9 +194,7 @@ public class ProductGroupApi {
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @RequestMapping(
-      value = "/private/products/{productId}/group/{code}",
-      method = RequestMethod.DELETE)
+	@DeleteMapping("/private/products/{productId}/group/{code}")
   @ApiImplicitParams({
       @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
       @ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en")

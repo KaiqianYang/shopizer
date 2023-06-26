@@ -19,13 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.salesmanager.core.business.services.catalog.pricing.PricingService;
 import com.salesmanager.core.business.services.customer.CustomerService;
@@ -85,7 +79,7 @@ public class OrderPaymentApi {
 	@Inject
 	private AuthorizationUtils authorizationUtils;
 
-	@RequestMapping(value = { "/cart/{code}/payment/init" }, method = RequestMethod.POST)
+	@PostMapping({"/cart/{code}/payment/init"})
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -117,7 +111,7 @@ public class OrderPaymentApi {
 
 	}
 
-	@RequestMapping(value = { "/auth/cart/{code}/payment/init" }, method = RequestMethod.POST)
+	@PostMapping({"/auth/cart/{code}/payment/init"})
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
@@ -180,7 +174,7 @@ public class OrderPaymentApi {
 		}
 	}
 
-	@RequestMapping(value = { "/private/orders/{id}/payment/nextTransaction" }, method = RequestMethod.GET)
+	@GetMapping({"/private/orders/{id}/payment/nextTransaction"})
 	@ResponseStatus(HttpStatus.OK)
 
 	@ResponseBody
@@ -201,7 +195,7 @@ public class OrderPaymentApi {
 
 	}
 	
-	@RequestMapping(value = { "/private/orders/{id}/payment/transactions" }, method = RequestMethod.GET)
+	@GetMapping({"/private/orders/{id}/payment/transactions"})
 	@ResponseStatus(HttpStatus.OK)
 
 	@ResponseBody
@@ -233,14 +227,14 @@ public class OrderPaymentApi {
 	 * @return ReadableOrderList
 	 * @throws Exception
 	 */
-	@RequestMapping(value = { "/private/orders/payment/capturable" }, method = RequestMethod.GET)
+	@GetMapping({"/private/orders/payment/capturable"})
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "String", defaultValue = "en") })
 	public ReadableOrderList listCapturableOrders(
-			@RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-			@RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+	@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+	@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language, HttpServletRequest request,
 			HttpServletResponse response) {
 
@@ -289,7 +283,7 @@ public class OrderPaymentApi {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = { "/private/orders/{id}/capture" }, method = RequestMethod.POST)
+	@PostMapping({"/private/orders/{id}/capture"})
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -332,7 +326,7 @@ public class OrderPaymentApi {
 	 * @param language
 	 * @return
 	 */
-	@RequestMapping(value = { "/private/orders/{id}/refund" }, method = RequestMethod.POST)
+	@PostMapping({"/private/orders/{id}/refund"})
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),
@@ -350,7 +344,7 @@ public class OrderPaymentApi {
 	 * @param language
 	 * @return
 	 */
-	@RequestMapping(value = { "/private/orders/{id}/authorize" }, method = RequestMethod.POST)
+	@PostMapping({"/private/orders/{id}/authorize"})
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "String", defaultValue = "DEFAULT"),

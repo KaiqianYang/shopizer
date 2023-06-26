@@ -516,8 +516,8 @@ public class SearchServiceImpl implements com.salesmanager.core.business.service
 	private String resourceAsText(Resource resource) throws Exception {
 		InputStream mappingstream = resource.getInputStream();
 		
-	    return new BufferedReader(
-	    	      new InputStreamReader(mappingstream, StandardCharsets.UTF_8))
+	    return /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new BufferedReader(
+	    	      /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new InputStreamReader(mappingstream, StandardCharsets.UTF_8))
 	    	        .lines()
 	    	        .collect(Collectors.joining("\n"));
 	}

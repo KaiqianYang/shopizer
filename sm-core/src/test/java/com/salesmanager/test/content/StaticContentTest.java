@@ -53,14 +53,14 @@ public class StaticContentTest extends com.salesmanager.test.common.AbstractSale
     {
 
         MerchantStore store = merchantService.getByCode( MerchantStore.DEFAULT_STORE );
-        final File file1 = new File( IMAGE_FILE);
+        final File file1 = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new File( IMAGE_FILE);
 
         if ( !file1.exists() || !file1.canRead() )
         {
             throw new ServiceException( "Can't read" + file1.getAbsolutePath() );
         }
 
-        final byte[] is = IOUtils.toByteArray( new FileInputStream( file1 ) );
+        final byte[] is = IOUtils.toByteArray( /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new FileInputStream( file1 ) );
         final ByteArrayInputStream inputStream = new ByteArrayInputStream( is );
         final InputContentFile cmsContentImage = new InputContentFile();
         cmsContentImage.setFileName( file1.getName() );
@@ -75,7 +75,7 @@ public class StaticContentTest extends com.salesmanager.test.common.AbstractSale
 		OutputContentFile image = contentService.getContentFile(store.getCode(), FileContentType.IMAGE, file1.getName());
 
         //print image
-   	 	OutputStream outputStream = new FileOutputStream (OUTPUT_FOLDER + image.getFileName()); 
+   	 	OutputStream outputStream = /*~~(TODO ASA-FileStorageApi: need configuration to use storage)~~>*/new FileOutputStream (OUTPUT_FOLDER + image.getFileName()); 
 
    	 	ByteArrayOutputStream baos =  image.getFile();
    	 	baos.writeTo(outputStream);

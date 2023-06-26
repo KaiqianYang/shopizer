@@ -54,7 +54,7 @@ public class MarketPlaceApi {
 	@GetMapping("/private/marketplace/{store}")
 	@ApiOperation(httpMethod = "GET", value = "Get market place meta-data", notes = "", produces = "application/json", response = ReadableMarketPlace.class)
 	public ReadableMarketPlace marketPlace(@PathVariable String store,
-			@RequestParam(value = "lang", required = false) String lang) {
+	@RequestParam(required = false) String lang) {
 
 		Language language = languageUtils.getServiceLanguage(lang);
 		return marketPlaceFacade.get(store, language);

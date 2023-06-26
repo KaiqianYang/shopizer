@@ -7,13 +7,8 @@ import java.util.stream.Stream;
 import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import com.salesmanager.shop.constants.Constants;
 
 import com.salesmanager.core.model.merchant.MerchantStore;
@@ -42,7 +37,7 @@ public class OrderStatusHistoryApi {
 	@Inject
 	private AuthorizationUtils authorizationUtils;
 
-	@RequestMapping(value = { "private/orders/{id}/history" }, method = RequestMethod.GET)
+	@GetMapping({"private/orders/{id}/history"})
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public List<ReadableOrderStatusHistory> list(@PathVariable final Long id, @ApiIgnore MerchantStore merchantStore,
@@ -56,7 +51,7 @@ public class OrderStatusHistoryApi {
 
 	}
 
-	@RequestMapping(value = { "private/orders/{id}/history" }, method = RequestMethod.POST)
+	@PostMapping({"private/orders/{id}/history"})
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(httpMethod = "POST", value = "Add order history", notes = "Adds a new status to an order", produces = "application/json", response = Void.class)
 	@ResponseBody

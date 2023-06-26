@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -88,7 +87,7 @@ public class CategoryApi {
 			@ApiImplicitParam(name = "lang", dataType = "string", defaultValue = "en")
 	})
 	public ReadableCategory getByfriendlyUrl(
-								@PathVariable(name = "friendlyUrl") String friendlyUrl,
+	@PathVariable String friendlyUrl,
 								@ApiIgnore MerchantStore merchantStore,
 								@ApiIgnore Language language) throws Exception {
 		ReadableCategory category = categoryFacade.getCategoryByFriendlyUrl(merchantStore, friendlyUrl, language);
@@ -100,7 +99,7 @@ public class CategoryApi {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "string", defaultValue = "en") })
 	@ApiOperation(httpMethod = "GET", value = "Check if category code already exists", notes = "", response = EntityExists.class)
-	public ResponseEntity<EntityExists> exists(@RequestParam(value = "code") String code,
+	public ResponseEntity<EntityExists> exists(@RequestParam String code,
 			@ApiIgnore MerchantStore merchantStore, @ApiIgnore Language language) {
 		boolean isCategoryExist = categoryFacade.existByCode(merchantStore, code);
 		return new ResponseEntity<EntityExists>(new EntityExists(isCategoryExist), HttpStatus.OK);
@@ -117,12 +116,12 @@ public class CategoryApi {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "store", dataType = "string", defaultValue = "DEFAULT"),
 			@ApiImplicitParam(name = "lang", dataType = "string", defaultValue = "en") })
 	public ReadableCategoryList list(
-			@RequestParam(value = "filter", required = false) List<String> filter,
-			@RequestParam(value = "name", required = false) String name,
+	@RequestParam(required = false) List<String> filter,
+	@RequestParam(required = false) String name,
 			@ApiIgnore MerchantStore merchantStore,
 			@ApiIgnore Language language,
-			@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+	@RequestParam(required = false, defaultValue = "0") Integer page,
+	@RequestParam(required = false, defaultValue = "10") Integer count) {
 
 
 		ListCriteria criteria = new ListCriteria();
@@ -238,7 +237,7 @@ public class CategoryApi {
 		categoryFacade.deleteCategory(categoryId, merchantStore);
 	}
 
-	@RequestMapping(value = { "/category/{id}/variants"}, method = RequestMethod.GET)
+	@GetMapping({"/category/{id}/variants"})
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(
 		httpMethod = "GET",
